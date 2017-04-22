@@ -38,5 +38,56 @@ class Pays
      * @ORM\Column(type="string")
      */
     private $description;
+
+    /**
+     * @return mixed
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+
+    /**
+     * @param mixed $nom
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUrlFlag()
+    {
+        return $this->url_flag;
+    }
+
+    /**
+     * @param mixed $url_flag
+     */
+    public function setUrlFlag($url_flag)
+    {
+        $this->url_flag = $url_flag;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param mixed $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+
+
 }
 
