@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Nelmio\ApiDocBundle\Annotation\Post;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -27,8 +28,8 @@ class VilleController extends Controller
      * @Route("/api/city/all")
      * @Method("GET")
      * @ApiDoc(
-     * resource="/api/biere/all",
-     * section = "Biere",
+     * resource="/api/city/all",
+     * section = "City",
      * description="Get full city list",
      * statusCodes={
      *     200="Successful",
@@ -41,103 +42,61 @@ class VilleController extends Controller
     {
 
         $repository = $this->getDoctrine()->getRepository('AppBundle:Ville');
-
-        $biere  = $repository->findAll();
-
-        return new JsonResponse($biere);
+        $city  = $repository->findAll();
+        return new JsonResponse($city);
 
     }
 
 
     /**
-     * @Route("/api/biere",)
+     * @Route("/api/city",)
      * @Method("GET")
      * @ApiDoc(
-     *  section = "Biere",
-     *  resource="/api/biere",
-     *  description="Return 1 Bier",
+     *  section = "City",
+     *  resource="/api/city",
+     *  description="Return 1 City",
      *  parameters={
-     *     {"name"="biere", "dataType"="int", "required"=true, "description"="Biere ID"}
-     *   },
-     *  output="AppBundle\Entity\Biere"
-     * )
-     */
-    public function getBierById(Request $request)
-    {
-
-        $biereId = $request->query->get('biere');
-
-        $repository = $this->getDoctrine()->getRepository('AppBundle:Biere');
-
-        $querybuilder = $repository->createQueryBuilder('u');
-
-        $querybuilder ->where('u.id = :biereid')
-            ->setParameter('biereid', $biereId)
-            ->setMaxResults(1);
-
-        $query = $querybuilder
-            ->getQuery();
-
-        // find *all* bier
-        $bieres = $query->getArrayResult();
-
-        return new JsonResponse($bieres);
-
-    }
-
-    /**
-     * @Route("/api/biere/city",)
-     * @Method("GET")
-     * @ApiDoc(
-     *  section = "Biere",
-     *  resource="/api/biere/city",
-     *  description="Return Bier city",
-     *  parameters={
-     *     {"name"="biere", "dataType"="int", "required"=true, "description"="Biere ID"}
+     *     {"name"="city", "dataType"="int", "required"=true, "description"="City ID"}
      *   },
      *  output="AppBundle\Entity\Ville"
      * )
      */
-    public function getBierCity(Request $request)
+    public function getCityById(Request $request)
     {
 
-        $biereId = $request->query->get('biere');
-
-        $repository = $this->getDoctrine()->getRepository('AppBundle:Biere');
-
-        $biere  = $repository->findOneBy(array('id' => $biereId));
-
-        $city = $biere->getVille();
-
+        $cityid = $request->query->get('city');
+        $repository = $this->getDoctrine()->getRepository('AppBundle:City');
+        $city  = $repository->findOneBy(array('id' => $cityid));
         return new JsonResponse($city);
 
     }
 
     /**
-     * @Route("/api/biere/pays",)
+     * @Route("/api/city/biers",)
      * @Method("GET")
      * @ApiDoc(
-     *  section = "Biere",
-     *  resource="/api/biere/pays",
-     *  description="Return Bier city",
+     *  section = "City",
+     *  resource="/api/city/biers",
+     *  description="Return all biers for 1 city",
      *  parameters={
-     *     {"name"="biere", "dataType"="int", "required"=true, "description"="Biere ID"}
+     *     {"name"="city", "dataType"="int", "required"=true, "description"="City ID"}
      *   },
-     *  output="AppBundle\Entity\Pays"
+     *  output="AppBundle\Entity\Biere"
      * )
      */
-    public function getBierCountry(Request $request)
+    public function getCityBiers(Request $request)
     {
 
-        $biereId = $request->query->get('biere');
+        $cityid = $request->query->get('city');
+
+        $repository = $this->getDoctrine()->getRepository('AppBundle:Ville');
+        $city  = $repository->findOneBy(array('id' => $cityid));
 
         $repository = $this->getDoctrine()->getRepository('AppBundle:Biere');
-
-        $biere  = $repository->findOneBy(array('id' => $biereId));
-
-        $pays = $biere->getPays();
-
-        return new JsonResponse($pays);;
+        $biers  = $repository->findBy(array('ville' => $city));
+        return new JsonResponse($biers);
 
     }
+
+
 }

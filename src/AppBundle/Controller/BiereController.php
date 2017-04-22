@@ -45,9 +45,7 @@ class BiereController extends Controller
 
 
         $repository = $this->getDoctrine()->getRepository('AppBundle:Biere');
-
         $biere  = $repository->findAll();
-
         return new JsonResponse($biere);
 
     }
