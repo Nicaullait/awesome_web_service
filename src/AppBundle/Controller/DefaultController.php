@@ -26,6 +26,7 @@ class DefaultController extends Controller{
      * @Route("/api/generate")
      *
      * @ApiDoc(
+     *
      * resource="/api/generate",
      * description="Create a bier sample",
      * statusCodes={
@@ -52,16 +53,15 @@ class DefaultController extends Controller{
 
         $brune = new Biere();
         $brune->setNom('Michard Brune');
-        $brune->setDescrption('Malgre son goût reconnaissable de cafe, ce n’est pas une stout. Sa rondeur et sa douceur l’apparentent plus àune biere de type belge.Malt torrefie.');
+        $brune->setDescription('Malgre son goût reconnaissable de cafe, ce n’est pas une stout. Sa rondeur et sa douceur l’apparentent plus à une biere de type belge.Malt torrefie.');
         $brune->setPays($pays);
         $brune->setVille($ville);
-        $brune->setPays($pays);
         $brune->setUrlImage('http://www.bieres-michard.com/site/wp-content/uploads/2016/01/MICHARD_LOGO_PANTONE.png');
 
 
         $blonde = new Biere();
         $blonde->setNom('Michard Blonde');
-        $blonde->setDescrption('Houblonnee à souhait
+        $blonde->setDescription('Houblonnee à souhait
 Biere legere, fine et gustative,
 ayant subi deux
 houblonnages avec la
@@ -69,30 +69,27 @@ variete aromatique Saaz.
 Malt pâle.');
         $blonde->setPays($pays);
         $blonde->setVille($ville);
-        $blonde->setPays($pays);
         $blonde->setUrlImage('http://www.bieres-michard.com/site/wp-content/uploads/2016/01/MICHARD_LOGO_PANTONE.png');
 
         $ambree = new Biere();
         $ambree->setNom('Michard Ambree');
-        $ambree->setDescrption('Biere au malt grille.
+        $ambree->setDescription('Biere au malt grille.
 Son goût inimitable ne lui
 confere aucune similitude avec d’autres. Houblon
 aromatique allemand.
 Malt torrefie.');
         $ambree->setPays($pays);
         $ambree->setVille($ville);
-        $ambree->setPays($pays);
         $ambree->setUrlImage('http://www.bieres-michard.com/site/wp-content/uploads/2016/01/MICHARD_LOGO_PANTONE.png');
 
 
         $blanche = new Biere();
         $blanche->setNom('Michard Blanche');
-        $blanche->setDescrption('Au malt de ble (45%)
+        $blanche->setDescription('Au malt de ble (45%)
 et d’orge (55%). Brassee selon une recette belge (Louvain). Tres leger houblonnage (Styrie) et souche de levure differente.
 Malt pâle et malt de ble');
         $blanche->setPays($pays);
         $blanche->setVille($ville);
-        $blanche->setPays($pays);
         $blanche->setUrlImage('http://www.bieres-michard.com/site/wp-content/uploads/2016/01/MICHARD_LOGO_PANTONE.png');
 
 

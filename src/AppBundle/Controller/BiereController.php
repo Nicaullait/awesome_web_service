@@ -14,7 +14,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Nelmio\ApiDocBundle\Annotation\Post;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\EntityManager;
 use AppBundle\Entity\Biere;
 use AppBundle\Entity\Pays;
@@ -23,6 +25,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class BiereController extends Controller
 {
+
     /**
      * @Route("/api/biere/all")
      * @Method("GET")
@@ -39,17 +42,11 @@ class BiereController extends Controller
      */
     public function getAllBiers()
     {
-        $repository = $this->getDoctrine()->getRepository('AppBundle:Ville');
-
-        $query = $repository->createQueryBuilder('p')
-            ->getQuery();
 
 
-        // find *all* bier
-        $products = $query->getResult;
-
-
-        return new JsonResponse($products);
+        $repository = $this->getDoctrine()->getRepository('AppBundle:Biere');
+        $biere  = $repository->findAll();
+        return new JsonResponse($biere);
 
     }
 
@@ -71,26 +68,9 @@ class BiereController extends Controller
     {
 
         $biereId = $request->query->get('biere');
-
-
         $repository = $this->getDoctrine()->getRepository('AppBundle:Biere');
-
-        $querybuilder = $repository->createQueryBuilder('u')
-            ->select('u.ville_id')
-            ->from('Biere', 'u')
-            ->where('u.id = ?'.$biereId);
-
-
-        $query = $querybuilder
-            ->getQuery();
-
-        // find *all* bier
-        $bieres = $query->getResult;
-
-
-
-
-        return new JsonResponse($bieres);
+        $biere  = $repository->findOneBy(array('id' => $biereId));
+        return new JsonResponse($biere);
 
     }
 
@@ -104,7 +84,7 @@ class BiereController extends Controller
      *  parameters={
      *     {"name"="biere", "dataType"="int", "required"=true, "description"="Biere ID"}
      *   },
-     *  output="AppBundle\Entity\City"
+     *  output="AppBundle\Entity\Ville"
      * )
      */
     public function getBierCity(Request $request)
@@ -112,45 +92,18 @@ class BiereController extends Controller
 
         $biereId = $request->query->get('biere');
         $repository = $this->getDoctrine()->getRepository('AppBundle:Biere');
-
-        $querybuilder = $repository->createQueryBuilder('u')
-            ->select('u.ville_id')
-            ->from('Biere', 'u')
-            ->where('u.id = ?'.$biereId);
-
-
-        $query = $querybuilder
-            ->getQuery();
-
-        // find *all* bier
-        $cityid = $query->getResult;
-
-
-        $repository2 = $this->getDoctrine()->getRepository('AppBundle:Biere');
-
-        $querybuilder2 = $repository2->createQueryBuilder('v')
-            ->select('v')
-            ->from('Biere', 'v')
-            ->where('v.id = ?'.$cityid);
-
-
-        $query2 = $querybuilder2
-            ->getQuery();
-
-
-        // find *all* bier
-        $city = $query2->getResult;
+        $biere  = $repository->findOneBy(array('id' => $biereId));
+        $city = $biere->getVille();
 
         return new JsonResponse($city);
-
     }
 
     /**
-     * @Route("/api/biere/country",)
+     * @Route("/api/biere/pays",)
      * @Method("GET")
      * @ApiDoc(
      *  section = "Biere",
-     *  resource="/api/biere/country",
+     *  resource="/api/biere/pays",
      *  description="Return Bier city",
      *  parameters={
      *     {"name"="biere", "dataType"="int", "required"=true, "description"="Biere ID"}
@@ -163,36 +116,10 @@ class BiereController extends Controller
 
         $biereId = $request->query->get('biere');
         $repository = $this->getDoctrine()->getRepository('AppBundle:Biere');
+        $biere  = $repository->findOneBy(array('id' => $biereId));
+        $pays = $biere->getPays();
 
-        $querybuilder = $repository->createQueryBuilder('u')
-            ->select('u.pays_id')
-            ->from('Biere', 'u')
-            ->where('u.id = ?'.$biereId);
-
-
-        $query = $querybuilder
-            ->getQuery();
-
-        // find *all* bier
-        $paysId = $query->getResult;
-
-
-        $repository2 = $this->getDoctrine()->getRepository('AppBundle:Pays');
-
-        $querybuilder2 = $repository2->createQueryBuilder('v')
-            ->select('v')
-            ->from('Biere', 'v')
-            ->where('v.id = ?'.$paysId);
-
-
-        $query2 = $querybuilder2
-            ->getQuery();
-
-
-        // find *all* bier
-        $pays = $query2->getResult;
-
-        return new JsonResponse($pays);
+        return new JsonResponse($pays);;
 
     }
 }
