@@ -54,6 +54,7 @@ class Biere
      */
     private $url_image;
 
+
     /**
      * @return mixed
      */

@@ -23,10 +23,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 class DefaultController extends Controller{
 
     /**
-     * @Route("/api/biere")
+     * @Route("/api/generate")
      *
      * @ApiDoc(
-     * resource="/api/biere",
+     * resource="/api/generate",
      * description="Create a bier sample",
      * statusCodes={
      *     200="Successful",
@@ -40,19 +40,19 @@ class DefaultController extends Controller{
 
         $pays = new Pays();
         $pays->setNom('France');
-        $pays->setDescription('La bière occupe une place importante dans la culture française. En effet la consomation moyenne est de 30L par an par habitant. Ce qui place la france 26ème consommateur de biere dans le monde');
+        $pays->setDescription('La biere occupe une place importante dans la culture francaise. En effet la consomation moyenne est de 30L par an par habitant. Ce qui place la france 26eme consommateur de biere dans le monde');
         $pays->setUrlFlag('http://choualbox.com/Img/1401649343486.jpg');
 
 
         $ville = new Ville();
         $ville->setNom('Limoges');
-        $ville->setDescription('Les bars et pub dans lesquels il est possible de consommer de la bière ne se comptent plus a Limoges. la ville possède aussi sa fabriquation artisanale de Bière');
+        $ville->setDescription('Les bars et pub dans lesquels il est possible de consommer de la biere ne se comptent plus a Limoges. la ville possede aussi sa fabriquation artisanale de Biere');
         $ville->setPays($pays);
         $ville->setUrlMeteo("33514");
 
         $brune = new Biere();
         $brune->setNom('Michard Brune');
-        $brune->setDescrption('Malgrè son goût reconnaissable de café, ce n’est pas une stout. Sa rondeur et sa douceur l’apparentent plus àune bière de type belge.Malt torréfié.');
+        $brune->setDescrption('Malgre son goût reconnaissable de cafe, ce n’est pas une stout. Sa rondeur et sa douceur l’apparentent plus àune biere de type belge.Malt torrefie.');
         $brune->setPays($pays);
         $brune->setVille($ville);
         $brune->setPays($pays);
@@ -61,11 +61,11 @@ class DefaultController extends Controller{
 
         $blonde = new Biere();
         $blonde->setNom('Michard Blonde');
-        $blonde->setDescrption('Houblonnée à souhait
-Bière légère, fine et gustative,
+        $blonde->setDescrption('Houblonnee à souhait
+Biere legere, fine et gustative,
 ayant subi deux
 houblonnages avec la
-variété aromatique Saaz.
+variete aromatique Saaz.
 Malt pâle.');
         $blonde->setPays($pays);
         $blonde->setVille($ville);
@@ -73,12 +73,12 @@ Malt pâle.');
         $blonde->setUrlImage('http://www.bieres-michard.com/site/wp-content/uploads/2016/01/MICHARD_LOGO_PANTONE.png');
 
         $ambree = new Biere();
-        $ambree->setNom('Michard Ambrée');
-        $ambree->setDescrption('Bière au malt grillé.
+        $ambree->setNom('Michard Ambree');
+        $ambree->setDescrption('Biere au malt grille.
 Son goût inimitable ne lui
-confère aucune similitude avec d’autres. Houblon
+confere aucune similitude avec d’autres. Houblon
 aromatique allemand.
-Malt torréfié.');
+Malt torrefie.');
         $ambree->setPays($pays);
         $ambree->setVille($ville);
         $ambree->setPays($pays);
@@ -87,9 +87,9 @@ Malt torréfié.');
 
         $blanche = new Biere();
         $blanche->setNom('Michard Blanche');
-        $blanche->setDescrption('Au malt de blé (45%)
-et d’orge (55%). Brassée selon une recette belge (Louvain). Très léger houblonnage (Styrie) et souche de levure différente.
-Malt pâle et malt de blé');
+        $blanche->setDescrption('Au malt de ble (45%)
+et d’orge (55%). Brassee selon une recette belge (Louvain). Tres leger houblonnage (Styrie) et souche de levure differente.
+Malt pâle et malt de ble');
         $blanche->setPays($pays);
         $blanche->setVille($ville);
         $blanche->setPays($pays);
