@@ -22,13 +22,13 @@ use AppBundle\Entity\Pays;
 use AppBundle\Entity\Ville;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
-class VilleController extends Controller
+class PaysController  extends Controller
 {
     /**
-     * @Route("/api/city/all")
+     * @Route("/api/country/all")
      * @Method("GET")
      * @ApiDoc(
-     * resource="/api/city/all",
+     * resource="/api/country/all",
      * section = "City",
      * description="Get full city list",
      * statusCodes={
@@ -38,62 +38,61 @@ class VilleController extends Controller
      * )
      *
      */
-    public function getAllCity()
+    public function getAllCountry()
     {
 
-        $repository = $this->getDoctrine()->getRepository('AppBundle:Ville');
-        $city  = $repository->findAll();
-        return new JsonResponse($city);
+        $repository = $this->getDoctrine()->getRepository('AppBundle:Pays');
+        $country  = $repository->findAll();
+        return new JsonResponse($country);
 
     }
 
 
     /**
-     * @Route("/api/city",)
+     * @Route("/api/country",)
      * @Method("GET")
      * @ApiDoc(
      *  section = "City",
      *  resource="/api/city",
-     *  description="Return 1 City",
+     *  description="Return 1 Country",
      *  parameters={
-     *     {"name"="city", "dataType"="int", "required"=true, "description"="City ID"}
+     *     {"name"="country", "dataType"="int", "required"=true, "description"="country ID"}
      *   },
      *  output="AppBundle\Entity\Ville"
      * )
      */
-    public function getCityById(Request $request)
+    public function getCountryById(Request $request)
     {
 
-        $cityid = $request->query->get('city');
-        $repository = $this->getDoctrine()->getRepository('AppBundle:Ville');
-        $city  = $repository->findOneBy(array('id' => $cityid));
-        return new JsonResponse($city);
+        $countryid = $request->query->get('country');
+        $repository = $this->getDoctrine()->getRepository('AppBundle:Pays');
+        $country  = $repository->findOneBy(array('id' => $countryid));
+        return new JsonResponse($country);
 
     }
 
     /**
-     * @Route("/api/city/biers",)
+     * @Route("/api/country/biers",)
      * @Method("GET")
      * @ApiDoc(
      *  section = "City",
      *  resource="/api/city/biers",
-     *  description="Return all biers for 1 city",
+     *  description="Return all biers for 1 country",
      *  parameters={
-     *     {"name"="city", "dataType"="int", "required"=true, "description"="City ID"}
+     *     {"name"="country", "dataType"="int", "required"=true, "description"="Country ID"}
      *   },
      *  output="AppBundle\Entity\Biere"
      * )
      */
-    public function getCityBiers(Request $request)
+    public function getCountryBiers(Request $request)
     {
 
-        $cityid = $request->query->get('city');
-
-        $repository = $this->getDoctrine()->getRepository('AppBundle:Ville');
-        $city  = $repository->findOneBy(array('id' => $cityid));
+        $countryid = $request->query->get('country');
+        $repository = $this->getDoctrine()->getRepository('AppBundle:Pays');
+        $country  = $repository->findOneBy(array('id' => $countryid));
 
         $repository = $this->getDoctrine()->getRepository('AppBundle:Biere');
-        $biers  = $repository->findBy(array('ville' => $city));
+        $biers  = $repository->findBy(array('pays' => $country));
         return new JsonResponse($biers);
 
     }
