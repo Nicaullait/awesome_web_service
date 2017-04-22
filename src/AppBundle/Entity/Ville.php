@@ -49,7 +49,15 @@ class Ville
     private $url_meteo;
 
     /**
-     * @return mixed
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
      */
     public function getNom()
     {
@@ -57,7 +65,7 @@ class Ville
     }
 
     /**
-     * @param mixed $nom
+     * @param string $nom
      */
     public function setNom($nom)
     {
@@ -73,7 +81,7 @@ class Ville
     }
 
     /**
-     * @param mixed $pays
+     * @param Pays $pays
      */
     public function setPays($pays)
     {
@@ -89,7 +97,7 @@ class Ville
     }
 
     /**
-     * @param mixed $description
+     * @param string $description
      */
     public function setDescription($description)
     {
@@ -97,7 +105,7 @@ class Ville
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getUrlMeteo()
     {
@@ -112,5 +120,5 @@ class Ville
         $this->url_meteo = $url_meteo;
     }
 
-    
+
 }
