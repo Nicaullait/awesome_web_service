@@ -14,25 +14,22 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Nelmio\ApiDocBundle\Annotation\Post;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\EntityManager;
 use AppBundle\Entity\Biere;
 use AppBundle\Entity\Pays;
 use AppBundle\Entity\Ville;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
-class BiereController extends Controller
+class VilleController extends Controller
 {
-
     /**
-     * @Route("/api/biere/all")
+     * @Route("/api/city/all")
      * @Method("GET")
      * @ApiDoc(
      * resource="/api/biere/all",
      * section = "Biere",
-     * description="Get full biere list",
+     * description="Get full city list",
      * statusCodes={
      *     200="Successful",
      *     403="Validation errors"
@@ -40,11 +37,10 @@ class BiereController extends Controller
      * )
      *
      */
-    public function getAllBiers()
+    public function getAllCity()
     {
 
-
-        $repository = $this->getDoctrine()->getRepository('AppBundle:Biere');
+        $repository = $this->getDoctrine()->getRepository('AppBundle:Ville');
 
         $biere  = $repository->findAll();
 
@@ -70,9 +66,22 @@ class BiereController extends Controller
     {
 
         $biereId = $request->query->get('biere');
+
         $repository = $this->getDoctrine()->getRepository('AppBundle:Biere');
-        $biere  = $repository->findOneBy(array('id' => $biereId));
-        return new JsonResponse($biere);
+
+        $querybuilder = $repository->createQueryBuilder('u');
+
+        $querybuilder ->where('u.id = :biereid')
+            ->setParameter('biereid', $biereId)
+            ->setMaxResults(1);
+
+        $query = $querybuilder
+            ->getQuery();
+
+        // find *all* bier
+        $bieres = $query->getArrayResult();
+
+        return new JsonResponse($bieres);
 
     }
 
@@ -93,11 +102,15 @@ class BiereController extends Controller
     {
 
         $biereId = $request->query->get('biere');
+
         $repository = $this->getDoctrine()->getRepository('AppBundle:Biere');
+
         $biere  = $repository->findOneBy(array('id' => $biereId));
+
         $city = $biere->getVille();
 
         return new JsonResponse($city);
+
     }
 
     /**
@@ -117,8 +130,11 @@ class BiereController extends Controller
     {
 
         $biereId = $request->query->get('biere');
+
         $repository = $this->getDoctrine()->getRepository('AppBundle:Biere');
+
         $biere  = $repository->findOneBy(array('id' => $biereId));
+
         $pays = $biere->getPays();
 
         return new JsonResponse($pays);;

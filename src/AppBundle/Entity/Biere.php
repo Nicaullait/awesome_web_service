@@ -10,12 +10,14 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
+
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="biere")
  */
-class Biere
+class Biere implements JsonSerializable
 {
     /**
      * @ORM\Column(type="integer")
@@ -32,19 +34,19 @@ class Biere
     /**
      * @ORM\Column(type="string", length=100)
      */
-    private $descrption;
+    private $description;
 
 
     /**
      * Many Biere have One Pays.
-     * @ORM\ManyToOne(targetEntity="Pays")
+     * @ORM\ManyToOne(targetEntity="Pays", fetch="EAGER")
      * @ORM\JoinColumn(name="pays_id", referencedColumnName="id")
      */
     private $pays;
 
     /**
      * Many Biere have One Ville.
-     * @ORM\ManyToOne(targetEntity="Ville")
+     * @ORM\ManyToOne(targetEntity="Ville", fetch="EAGER")
      * @ORM\JoinColumn(name="ville_id", referencedColumnName="id")
      */
     private $ville;
@@ -84,17 +86,17 @@ class Biere
     /**
      * @return mixed
      */
-    public function getDescrption()
+    public function getDescription()
     {
-        return $this->descrption;
+        return $this->description;
     }
 
     /**
-     * @param mixed $descrption
+     * @param mixed $description
      */
-    public function setDescrption($descrption)
+    public function setDescription($description)
     {
-        $this->descrption = $descrption;
+        $this->description = $description;
     }
 
     /**
@@ -146,5 +148,22 @@ class Biere
     }
 
 
-
+    /**
+     * Specify data which should be serialized to JSON
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     * @since 5.4.0
+     */
+    function jsonSerialize()
+    {
+        return  [
+                'id' => $this->id,
+                'nom' => $this->nom,
+                'description' => $this->description,
+                //'pays' => $this->pays,
+                //'ville' => $this->ville,
+                'url_image' => $this->url_image,
+        ];
+    }
 }

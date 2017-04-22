@@ -10,12 +10,13 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="pays")
  */
-class Pays
+class Pays implements JsonSerializable
 {
     /**
      * @ORM\Column(type="integer")
@@ -98,6 +99,26 @@ class Pays
     }
 
 
+    /**
+     * Specify data which should be serialized to JSON
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     * @since 5.4.0
+     */
+
+        function jsonSerialize()
+        {
+
+            return [
+                'pays' => [
+                    'id' => $this->id,
+                    'nom' => $this->nom,
+                    'url_flag' => $this->url_flag,
+                    'description' => $this->description,
+                ]
+            ];
+        }
 
 }
 
