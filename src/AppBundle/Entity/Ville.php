@@ -134,13 +134,12 @@ class Ville implements JsonSerializable
 
 
         return [
-            'ville' => [
-                'id' => $this->id,
-                'nom' => $this->nom,
-                'description' => $this->description,
-                //'pays' => $this->pays,
-                'url_meteo' => $this->url_meteo,
-            ]
+            'id' => $this->id,
+            'nom' => $this->nom,
+            'description' => $this->description,
+            //'pays' => $this->pays,
+            'url_meteo' => $this->url_meteo,
+
         ];
     }
 }

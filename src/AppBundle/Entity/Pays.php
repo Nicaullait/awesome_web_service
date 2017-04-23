@@ -111,12 +111,11 @@ class Pays implements JsonSerializable
         {
 
             return [
-                'pays' => [
-                    'id' => $this->id,
-                    'nom' => $this->nom,
-                    'url_flag' => $this->url_flag,
-                    'description' => $this->description,
-                ]
+                'id' => $this->id,
+                'nom' => $this->nom,
+                'url_flag' => $this->url_flag,
+                'description' => $this->description,
+
             ];
         }
 
