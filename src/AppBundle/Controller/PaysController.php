@@ -29,7 +29,7 @@ class PaysController  extends Controller
      * @Method("GET")
      * @ApiDoc(
      * resource="/api/country/all",
-     * section = "City",
+     * section = "Country",
      * description="Get full city list",
      * statusCodes={
      *     200="Successful",
@@ -52,7 +52,7 @@ class PaysController  extends Controller
      * @Route("/api/country",)
      * @Method("GET")
      * @ApiDoc(
-     *  section = "City",
+     *  section = "Country",
      *  resource="/api/city",
      *  description="Return 1 Country",
      *  parameters={
@@ -75,7 +75,7 @@ class PaysController  extends Controller
      * @Route("/api/country/biers",)
      * @Method("GET")
      * @ApiDoc(
-     *  section = "City",
+     *  section = "Country",
      *  resource="/api/city/biers",
      *  description="Return all biers for 1 country",
      *  parameters={
